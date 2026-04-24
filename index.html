@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruby Reader Pro | 究極の読書体験</title>
+    <meta name="description" content="テキストファイルに自動でルビを振る、洗練された読書システム。">
+    <link rel="stylesheet" href="./style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+JP:wght@400;700&family=Outfit:wght@300;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Kuromoji -->
+    <script src="https://cdn.jsdelivr.net/npm/kuromoji@0.1.2/build/kuromoji.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Sidebar Settings -->
+        <aside id="sidebar" class="sidebar glass">
+            <div class="sidebar-header">
+                <h2 class="brand">Settings</h2>
+                <button id="close-sidebar" class="icon-btn" aria-label="Close settings">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="setting-group">
+                    <label class="setting-label">Display</label>
+                    <div class="setting-item">
+                        <span>Furigana (Ruby)</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-ruby" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">Typography</label>
+                    <div class="setting-item flex-col">
+                        <div class="flex-between w-100">
+                            <span>Font Size</span>
+                            <span id="font-size-value">18px</span>
+                        </div>
+                        <input type="range" id="font-size-slider" min="12" max="32" value="18" class="range-slider">
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">Reader Mode</label>
+                    <div class="setting-item">
+                        <span>Serif Font</span>
+                        <label class="switch">
+                            <input type="checkbox" id="toggle-serif" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">Export</label>
+                    <button id="export-ssml-btn" class="secondary-btn w-100">
+                        <i data-lucide="mic"></i> SSML Copy (Google TTS)
+                    </button>
+                    <p class="export-hint">Google Cloud TTS で利用可能な SSML 形式でクリップボードにコピーします。</p>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <p class="status-info" id="status-message">Engine initializing...</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-container">
+            <header class="top-nav">
+                <div class="nav-left">
+                    <h1 class="logo">Ruby Reader <span>Pro</span></h1>
+                </div>
+                <div class="nav-right">
+                    <button id="open-sidebar" class="icon-btn glass-btn" aria-label="Open settings">
+                        <i data-lucide="settings"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div id="upload-zone" class="upload-zone glass">
+                <div class="upload-content">
+                    <div class="icon-wrapper">
+                        <i data-lucide="file-text" size="48"></i>
+                    </div>
+                    <h2>ファイルを読み込む</h2>
+                    <p>テキストファイルをドラッグ＆ドロップ、または選択してください</p>
+                    <button id="select-file-btn" class="primary-btn">
+                        <i data-lucide="upload"></i> ファイルを選択
+                    </button>
+                    <input type="file" id="file-input" accept=".txt" hidden>
+                </div>
+            </div>
+
+            <article id="reader-container" class="reader-container hidden">
+                <div id="reader-content" class="reader-content serif-mode">
+                    <!-- Text content will be injected here -->
+                </div>
+            </article>
+
+            <div id="loading-overlay" class="loading-overlay hidden">
+                <div class="loader"></div>
+                <p id="loading-text">解析中...</p>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+</body>
+</html>
